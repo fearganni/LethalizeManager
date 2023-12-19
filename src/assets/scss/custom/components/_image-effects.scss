@@ -1,0 +1,9 @@
+.zoom-effect.with-blur {
+  .zoom-effect-img {
+    transition: all 0.4s ease-in-out !important;
+  }
+
+  &:hover .zoom-effect-img {
+    filter: blur(10px);
+  }
+}
