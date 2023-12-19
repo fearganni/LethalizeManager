@@ -1,0 +1,11 @@
+.headroom.bg-transition {
+  transition: all 200ms ease;
+
+  &.headroom--top {
+    @extend .bg-transparent;
+  }
+  &.headroom--not-top {
+    background-color: rgba(var(--ar-dark-rgb), 0.8) !important;
+    backdrop-filter: blur(20px);
+  }
+}
