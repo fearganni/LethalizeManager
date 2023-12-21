@@ -1,0 +1,159 @@
+.ng-select {
+  position: relative;
+
+  .ng-has-value .ng-placeholder {
+    display: none;
+  }
+  .ng-select-container {
+    .ng-value-container {
+      align-items: center;
+
+      .ng-placeholder {
+        color: $input-placeholder-color;
+      }
+
+      .ng-input > input {
+        color: $input-placeholder-color;
+      }
+    }
+  }
+
+  .ng-arrow-wrapper {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 12px;
+
+    transform: rotate(-90deg);
+    transition: transform 200ms ease-in-out;
+  }
+
+  &.ng-select-opened {
+    border-bottom: 1px solid transparent;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    .ng-arrow-wrapper {
+      transform: rotate(0deg);
+    }
+  }
+
+  // dropdown panel
+  .ng-dropdown-panel {
+    border-radius: $border-radius;
+    // no border radius top
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    // styling
+    border: var(--ar-border-width) solid var(--ar-gray-400);
+    background: var(--ar-gray-100);
+    backdrop-filter: blur(15px);
+    //box-shadow: $box-shadow;
+    left: -1px;
+
+    &.ng-select-top {
+      bottom: 100%;
+      margin-bottom: 1px;
+      border-top-right-radius: $border-radius;
+      border-top-left-radius: $border-radius;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+
+      .ng-dropdown-panel-items {
+        border-top-right-radius: $border-radius;
+        border-top-left-radius: $border-radius;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+
+        .ng-option {
+          &:first-child {
+            border-top-right-radius: $border-radius;
+            border-top-left-radius: $border-radius;
+          }
+        }
+      }
+    }
+
+    &.ng-select-bottom {
+      top: 100%;
+      margin-top: 1px;
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+
+      .ng-dropdown-panel-items {
+        border-bottom-right-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+
+        .ng-option {
+          &:last-child {
+            border-bottom-right-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
+          }
+        }
+      }
+    }
+
+    .ng-dropdown-header,
+    .ng-dropdown-footer {
+      padding: $nav-link-padding-y $nav-link-padding-x * 0.5 $nav-link-padding-y *
+        0.5;
+      color: var(--ar-emphasis-color);
+      font-size: $font-size-sm;
+    }
+
+    .ng-dropdown-panel-items {
+      margin-bottom: 1px;
+
+      .ng-optgroup {
+        padding: $nav-link-padding-y $nav-link-padding-x;
+        color: $text-muted;
+        text-transform: uppercase;
+        font-size: $font-size-sm;
+
+        &.ng-option-selected {
+          color: var(--bs-light);
+          background: var(--app-component-focus-border-color);
+        }
+      }
+
+      .ng-option {
+        padding: $nav-link-padding-y $nav-link-padding-x;
+        transition: all 200ms ease;
+
+        &.ng-option-selected,
+        &.ng-option-selected.ng-option-marked {
+          background: rgba(var(--ar-secondary-color-rgb), 0.1);
+          color: var(--ar-primary);
+        }
+
+        &.ng-option-marked {
+          background: rgba(var(--ar-secondary-color-rgb), 0.05);
+          color: var(--ar-light);
+        }
+
+        &.ng-option-disabled {
+          color: $text-muted;
+        }
+      }
+    }
+  }
+
+  .ng-select.ng-select-single
+    .ng-select-container
+    .ng-value-container
+    .ng-input {
+    padding: 0 $input-padding-x;
+
+    & input {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+// ng-select
+.ng-select-opened .ng-dropdown-panel {
+  z-index: 999 !important;
+}
