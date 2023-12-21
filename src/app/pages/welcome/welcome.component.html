@@ -35,13 +35,12 @@
 <section class="container position-relative z-3">
   <div class="d-none d-lg-block" style="margin-top: -428px;"></div>
   <div class=" d-lg-none" style="margin-top: -370px;"></div>
-  <div class="swiper overflow-visible">
+  <div class="swiper">
     <div class="swiper-wrapper">
 
       <!-- Item -->
       <div class="swiper-slide" *ngFor="let item of swiperItems; let i = index;">
-        <a [routerLink]="item.link"
-          class="card card-hover zoom-effect with-blur border-0 rounded-5 overflow-hidden shadow-sm">
+        <a [routerLink]="item.link" class="card card-hover zoom-effect with-blur border-0 rounded-5 overflow-hidden">
           <span class="position-absolute top-0 start-0 w-100 h-100 z-1" [ngStyle]="{ 'background': swiperBG }"></span>
           <div class="position-absolute top-0 bottom-0 w-100 z-2 p-0 d-flex align-items-end flex-column">
 
