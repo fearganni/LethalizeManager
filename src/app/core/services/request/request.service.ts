@@ -11,7 +11,8 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class RequestService {
-  private headers = new HttpHeaders().set('Content-Type', 'application/json');
+  private headers = new HttpHeaders();
+
   public preset_urls = {
     github_repo: 'https://api.github.com/repos/fearganni/LethalizeManager',
     github_releases: `https://api.github.com/repos/fearganni/LethalizeManager/releases`,
