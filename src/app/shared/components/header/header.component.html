@@ -1,0 +1,229 @@
+<header id="header" class="navbar navbar-expand-lg fixed-top" *ngIf="AppSettings.appHeader && !AppSettings.appEmpty"
+  [ngClass]="{
+    'bg-transition': AppSettings.appHeaderTransparent,
+    'bg-light': !AppSettings.appHeaderTransparent
+}">
+
+  <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page -->
+  <div class="container">
+
+    <!-- Navbar brand (Logo) -->
+    <a class="navbar-brand pe-sm-3" routerLink="/">
+      <!-- <img src="assets/img/lethaliize/manager.webp" class="rounded flex-shrink-0 me-2" style="max-width: 34px;"> -->
+      Lethalize
+    </a>
+
+    <!-- Theme switcher 
+      <div class="form-check form-switch mode-switch order-lg-2 me-3 me-lg-4 ms-auto" data-bs-toggle="mode">
+        <input class="form-check-input" type="checkbox" id="theme-mode">
+        <label class="form-check-label" for="theme-mode">
+          <i class="ai-sun fs-lg"></i>
+        </label>
+        <label class="form-check-label" for="theme-mode">
+          <i class="ai-moon fs-lg"></i>
+        </label>
+      </div>
+      -->
+
+    <a class="btn btn-primary btn-sm fs-sm rounded-pill order-lg-3 me-3 d-none d-sm-inline-flex ms-auto"
+      routerLink="updates">
+      <i class="ai-activity fs-xl me-2 ms-n1"></i>
+      Mod Updates
+    </a>
+
+    <a class="btn btn-info btn-sm fs-sm rounded-pill order-lg-3 d-none d-sm-inline-flex" routerLink="development">
+      <i class="ai-activity fs-xl me-2 ms-n1"></i>
+      Development
+    </a>
+
+
+    <!-- Mobile menu toggler (Hamburger) -->
+    <button class="navbar-toggler ms-sm-3" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar collapse (Main navigation) -->
+    <nav class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isMenuCollapsed">
+      <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px;">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="home" routerLinkActive="active">
+            <i class="ai-home fs-xl me-2"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:;" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="ai-star fs-xl me-2"></i>
+            Featured
+          </a>
+          <div class="dropdown-menu overflow-hidden p-0">
+            <div class="d-lg-flex">
+              <div class="mega-dropdown-column pt-1 pt-lg-3 pb-lg-4">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a class="dropdown-item" href="index.html">Template Intro Page</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0"
+                      style="background-image: url(assets/img/megamenu/landings.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-mobile-app-showcase.html">Mobile App Showcase</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/mobile-app.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-product.html">Product Landing</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/product-landing.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-saas-v1.html">SaaS v.1</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/saas-1.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-saas-v2.html">SaaS v.2</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/saas-2.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-saas-v3.html">SaaS v.3</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/saas-3.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-saas-v4.html">
+                      SaaS v.4
+                      <span class="text-danger fs-xs ms-2">New</span>
+                    </a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/saas-4.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-shop-v1.html">Shop Homepage v.1</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/shop-homepage-1.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-shop-v2.html">
+                      Shop Homepage v.2
+                      <span class="text-danger fs-xs ms-2">New</span>
+                    </a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/shop-homepage-2.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-marketing-agency.html">Marketing Agency</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/marketing-agency.jpg);"></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="mega-dropdown-column pb-2 pt-lg-3 pb-lg-4">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a class="dropdown-item" href="landing-creative-agency.html">Creative Agency</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/creative-agency.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-conference.html">Conference (Event)</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/conference.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-web-studio.html">Web Studio</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/web-studio.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-corporate.html">Corporate</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/corporate.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-insurance.html">
+                      Insurance Company
+                      <span class="text-danger fs-xs ms-2">New</span>
+                    </a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/insurance.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-business-consulting.html">Business Consulting</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/business-consulting.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-coworking-space.html">Coworking Space</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/coworking.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-yoga-studio.html">Yoga Studio</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/yoga-studio.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-influencer.html">Influencer</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/influencer.jpg);"></span>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="landing-blog.html">Blog Homepage</a>
+                    <span
+                      class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                      style="background-image: url(assets/img/megamenu/blog-homepage.jpg);"></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="mega-dropdown-column position-relative border-start z-3"></div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="mods" routerLinkActive="active">
+            <i class="ai-file fs-xl me-2"></i>
+            Mods
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="modpacks" routerLinkActive="active">
+            <i class="ai-folder fs-xl me-2"></i>
+            Modpacks
+          </a>
+        </li>
+      </ul>
+      <div class="d-sm-none p-3 mt-n3">
+        <a class="btn btn-primary w-100 rounded-pill mb-1" routerLink="updates">
+          <i class="ai-activity fs-xl me-2 ms-n1"></i>
+          Mod Updates
+        </a>
+      </div>
+      <div class="d-sm-none p-3 mt-n3">
+        <a class="btn btn-info w-100 rounded-pill mb-1" routerLink="development">
+          <i class="ai-activity fs-xl me-2 ms-n1"></i>
+          Development
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
