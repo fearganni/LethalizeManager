@@ -1,1 +1,155 @@
-<p>mod works!</p>
+<div class="container pt-5 pb-lg-5 pb-md-4 pb-2 my-5">
+
+  <form [formGroup]="form">
+    <!-- Breadcrumb -->
+    <div class="d-flex justify-content-between align-items-center pt-lg-3 pb-lg-4 pb-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Mods</li>
+        </ol>
+      </nav>
+
+      <div class="form-check form-switch mode-switch">
+        <input class="form-check-input" type="checkbox" id="nsfw_enabled" formControlName="nsfw_enabled">
+        <label class="form-check-label" for="theme-mode">SFW</label>
+        <label class="form-check-label" for="theme-mode">NSFW</label>
+      </div>
+    </div>
+
+    <!-- Page title + filters -->
+    <div class="row align-items-center gy-2 mb-4 pb-1 pb-sm-2 pb-lg-3">
+      <div class="col-lg-4 col-xxl-6">
+        <h1 class="mb-lg-0">Mods</h1>
+      </div>
+      <div class="col-lg-8 col-xxl-6 col-sm-12">
+        <div class="row gy-2 gx-3 align-items-center">
+
+          <div class="col-sm-12 col-md-4 col-lg-6 col-xxl-4">
+            <ng-select class="form-control" id="store" placeholder="Select a category" [items]="this.categories"
+              bindLabel="category" bindValue="value" [searchable]="true" formControlName="category">
+
+              <!-- selected (text) -->
+              <ng-template ng-label-tmp let-item="item">
+                {{ item.category || 'All' }} <span class="text-muted">({{ item.count || '0' }})</span>
+              </ng-template>
+
+              <!-- option (text) -->
+              <ng-template ng-option-tmp let-item="item">
+                {{ item.category }} <span class="text-muted">({{ item.count }})</span>
+              </ng-template>
+
+            </ng-select>
+          </div>
+
+          <div class="col-sm-12 col-md-8 col-lg-6 col-xxl-8">
+            <div class="position-relative">
+              <i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+              <input class="form-control ps-5" type="search" placeholder="Enter keyword" formControlName="keyword_term">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Post -->
+
+
+    </div>
+
+  </form>
+
+  <div class="row gx-4">
+
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let item of temp.slice((page-1) * pageSize, page * pageSize)">
+      <a class="card card-hover-info bg-secondary text-decoration-none border-0 h-100 overflow-hidden"
+        href="javascript:;">
+        <div class="overflow-hidden position-relative">
+
+          <!-- background item logo -->
+          <img class="card-img-top img-blur object-fit-cover" style="height: 275px" [src]="item.versions.at(0).icon"
+            [alt]="item.name" loading="lazy">
+
+          <!-- icon over background item logo -->
+          <div class="position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center">
+            <img [src]="item.versions.at(0).icon" [alt]="item.name" class="rounded-1"
+              style="max-width: 144px; margin-bottom: 35px;" loading="lazy">
+          </div>
+
+          <!-- We are pinned! on top of image -->
+          <div *ngIf="item.is_pinned"
+            class="position-absolute top-0 end-0 bg-dark p-3 rounded-2 rounded-top-0 rounded-end-0"
+            style="--ar-bg-opacity: 0.75; backdrop-filter: blur(4px);" triggers="mouseenter:mouseleave"
+            placement="start" ngbPopover="This mod has been pinned!" container="body">
+            <i class="fa-solid fa-thumbtack fa-bounce fa-lg text-info" style="--fa-animation-duration: 2s;"></i>
+          </div>
+
+          <!-- We are hot! on top of image -->
+          <div *ngIf="item.has_nsfw_content"
+            class="position-absolute top-0 end-0 bg-dark p-3 rounded-2 rounded-top-0 rounded-end-0"
+            style="--ar-bg-opacity: 0.75; backdrop-filter: blur(4px);" triggers="mouseenter:mouseleave"
+            placement="start" ngbPopover="This mod has NSFW content!" container="body">
+            <i class="fa-solid fa-fire fa-shake fa-lg text-warning" style="--fa-animation-duration: 10s;"></i>
+          </div>
+
+          <!-- basic details on top of image -->
+          <div class="card-body bg-dark py-1 position-absolute bottom-0 start-0 end-0"
+            style="--ar-bg-opacity: 0.75; backdrop-filter: blur(4px);">
+            <div class="d-flex align-items-center justify-content-between">
+
+              <!-- categories -->
+              <span>
+                <a class="badge text-nav fs-xs border" href="javascript:;"
+                  *ngFor="let cat of item.categories.slice(0, 3)">
+                  {{ cat | uppercase }}
+                </a>
+              </span>
+
+              <!-- downloads -->
+              <span class="fs-sm text-muted">
+                <i class="fa-solid fa-fw fa-download text-primary"></i>
+                {{ statisticFormat(item.versions.at(0).downloads) }}
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body py-4">
+
+          <!-- title -->
+          <h5 class="h5 card-title">
+            <a [routerLink]="'/mod/'+item.full_name">
+              {{ item.name }}
+            </a>
+          </h5>
+
+          <p class="card-text mb-0">
+            {{ item.versions.at(0).description }}
+          </p>
+
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-between">
+
+          <span class="fs-sm text-muted">
+            <i class="fa-solid fa-fw fa-eye text-primary"></i>
+            {{ item.date_updated | date }}
+          </span>
+
+          <span class="fs-sm text-muted">
+            <i class="fa-solid fa-fw fa-thumbs-up text-primary"></i>
+            {{ item.rating_score }}
+          </span>
+
+        </div>
+
+      </a>
+    </div>
+
+    <!-- pagination -->
+    <ngb-pagination [(page)]="page" [maxSize]="5" [pageSize]="pageSize" [collectionSize]="temp.length"
+      (pageChange)="pageChange($event)" />
+
+  </div>
+
+</div>
