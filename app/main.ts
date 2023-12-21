@@ -1,4 +1,5 @@
 import { app, BrowserWindow, screen } from 'electron';
+import { initialize, enable } from '@electron/remote/main';
 import { autoUpdater, UpdateDownloadedEvent } from 'electron-updater';
 import { Client } from 'discord-rpc';
 
@@ -113,6 +114,7 @@ function checkUpdates(): void {
   });
 }
 
+initialize();
 function createWindow(): BrowserWindow {
   const size = screen.getPrimaryDisplay().workAreaSize;
 
@@ -157,6 +159,8 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  enable(win.webContents);
 
   return win;
 }
