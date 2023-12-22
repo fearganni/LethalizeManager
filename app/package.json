@@ -1,13 +1,12 @@
 {
-  "name": "angular-electron",
-  "description": "Angular Electron sample",
+  "name": "lethalize-manager",
+  "description": "A modloader application for Lethal Company. Written in Electron and Angular.",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "FearGanni",
+    "email": "gannicus@prbitus.ca"
   },
-  "version": "13.0.0",
-  "main": "main.js",
+  "version": "0.0.1",
+  "main": "./build/Lethalize.js",
   "private": true,
-  "dependencies": {
-  }
+  "dependencies": {}
 }
