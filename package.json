@@ -8,7 +8,7 @@
     "email": "gannicus@orbitus.ca"
   },
   "keywords": [],
-  "main": "app/main.js",
+  "main": "app/build/Lethalize.js",
   "private": true,
   "browser": {
     "fs": false,
