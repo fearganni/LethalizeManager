@@ -3,7 +3,7 @@
 <main class="page-wrapper">
 
   <!-- header -->
-  <app-header></app-header>
+  <app-header *ngIf="!AppSettings.appEmpty"></app-header>
 
   <!-- pages -->
   <router-outlet></router-outlet>
@@ -11,4 +11,4 @@
 </main>
 
 <!-- footer -->
-<app-footer></app-footer>
+<app-footer *ngIf="!AppSettings.appEmpty"></app-footer>
