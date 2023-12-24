@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 
 import * as Headroom from 'headroom.js';
 
@@ -9,7 +9,7 @@ import { AppSettings } from '../../../core';
   templateUrl: './header.component.html',
   styles: [],
 })
-export class HeaderComponent implements OnInit, AfterViewChecked {
+export class HeaderComponent implements AfterViewChecked {
   AppSettings = AppSettings;
   isMenuCollapsed = true;
 
@@ -18,8 +18,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   headerChecked = false;
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   ngAfterViewChecked(): void {
     if (!this.headerChecked) {
