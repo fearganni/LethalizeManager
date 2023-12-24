@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { PageNotFoundComponent } from './shared/components';
+
 import {
-  UpdatesComponent,
-  UpdateComponent,
+  HomeComponent,
+  DevelopmentComponent,
+  CreditsComponent,
+  ModsComponent,
   ModComponent,
-  ModpackComponent,
-  WelcomeComponent,
+  FeaturedComponent,
+  UpdatesComponent,
 } from './pages';
 
 const routes: Routes = [
@@ -17,33 +21,56 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: WelcomeComponent,
+    component: HomeComponent,
     data: {
       title: 'Home',
     },
   },
   {
     path: 'development',
-    component: UpdatesComponent,
+    component: DevelopmentComponent,
     data: {
       title: 'Developer Updates',
     },
   },
+  {
+    path: 'credits',
+    component: CreditsComponent,
+    data: {
+      title: 'Credits',
+    },
+  },
 
   {
+    path: 'featured',
+    component: FeaturedComponent,
+    data: {
+      title: 'Featured',
+    },
+  },
+  {
     path: 'mods',
-    component: ModComponent,
+    component: ModsComponent,
     data: {
       title: 'Mods',
     },
   },
   {
-    path: 'pack',
-    component: ModpackComponent,
+    path: 'mod/:owner/:name',
+    component: ModComponent,
     data: {
-      title: 'Pack',
+      title: 'Mod',
     },
   },
+  {
+    path: 'updates',
+    component: UpdatesComponent,
+    data: {
+      title: 'Updates',
+    },
+  },
+
+  // Error page
   {
     path: '**',
     component: PageNotFoundComponent,
