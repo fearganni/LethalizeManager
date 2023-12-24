@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 import Swiper from 'swiper';
-import { RequestService } from '../../core';
+import { RequestService, GitHubRelease } from '../../core';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
+  selector: 'app-home',
+  templateUrl: './home.component.html',
   styles: [],
 })
-export class WelcomeComponent implements OnInit {
-  lastUpdate: any;
+export class HomeComponent implements OnInit {
+  lastUpdate: GitHubRelease | null | undefined = null;
 
   swiperItems = [
     {
@@ -43,14 +43,14 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     // Get our last github release note for the banner
     this.request
-      .get<any[]>(this.request.preset_urls.github_releases)
+      .get<GitHubRelease[]>(this.request.preset_urls.github_releases)
       .subscribe({
-        next: (r: any[]) => (this.lastUpdate = r.at(0)),
-        error: (e) => this.request.error(e),
+        next: (r: GitHubRelease[]) => (this.lastUpdate = r.at(0)),
+        error: (e: any) => this.request.error(e),
       });
 
     // Register our swiper container
-    const swiper = new Swiper('.swiper', {
+    new Swiper('.swiper', {
       autoplay: {
         delay: 5000,
       },
