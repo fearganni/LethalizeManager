@@ -4,7 +4,7 @@ import { initialize, enable } from '@electron/remote/main';
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { AppUpdates, DiscordRPC } from './modules';
+import { AppUpdate, DiscordRPC, IpcMain } from './controllers';
 
 let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
@@ -70,7 +70,8 @@ try {
     setTimeout(createWindow, 400);
 
     new DiscordRPC().connect();
-    new AppUpdates(win).check();
+    new IpcMain(win).listen();
+    new AppUpdate(win).check();
   });
 
   // Quit when all windows are closed.

@@ -1,7 +1,7 @@
 import { BrowserWindow } from 'electron';
 import { autoUpdater, UpdateDownloadedEvent } from 'electron-updater';
 
-export class AppUpdates {
+export class AppUpdate {
   win: BrowserWindow | null = null;
 
   constructor(window: BrowserWindow | null) {
