@@ -37,13 +37,13 @@ import {
 
 // Pages
 import {
-  UpdatesComponent,
-  UpdateComponent,
-  CreditComponent,
-  WelcomeComponent,
-  FeaturedComponent,
+  HomeComponent,
+  DevelopmentComponent,
+  CreditsComponent,
+  ModsComponent,
   ModComponent,
-  ModpackComponent,
+  FeaturedComponent,
+  UpdatesComponent,
 } from './pages';
 
 // AoT requires an exported function for factories
@@ -60,14 +60,13 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     FooterComponent,
 
     // Pages
-    UpdatesComponent,
-    UpdateComponent,
-    CreditComponent,
-
-    WelcomeComponent,
-    FeaturedComponent,
-    ModpackComponent,
+    HomeComponent,
+    DevelopmentComponent,
+    CreditsComponent,
+    ModsComponent,
     ModComponent,
+    FeaturedComponent,
+    UpdatesComponent,
   ],
   imports: [
     BrowserModule,
