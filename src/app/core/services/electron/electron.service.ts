@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
-import { ipcRenderer, webFrame } from 'electron';
+import { IpcRendererEvent, ipcRenderer, webFrame } from 'electron';
 import { app } from '@electron/remote';
 
 import * as childProcess from 'child_process';
@@ -63,5 +63,72 @@ export class ElectronService {
     } else {
       return '?.?.?';
     }
+  }
+
+  downloadFile(fileUrl: string, fileName: string): void {
+    this.ipcRenderer.send('download-file', fileUrl, fileName);
+  }
+
+  extractFile(tmpPath: string, savePath: string): void {
+    this.ipcRenderer.send('extract-file', tmpPath, savePath);
+  }
+
+  downloadProgress(): void {
+    this.ipcRenderer.on(
+      'download-progress',
+      (
+        event: IpcRendererEvent,
+        data: {
+          fileUrl: string;
+          fileName: string;
+          tmpLoc: string;
+          progress: number;
+          finished: boolean;
+        }
+      ) => {
+        console.log(event, data);
+      }
+    );
+
+    this.ipcRenderer.on(
+      'download-error',
+      (
+        event: IpcRendererEvent,
+        data: {
+          fileUrl: string;
+          fileName: string;
+          tmpLoc: string;
+          error: string;
+        }
+      ) => {
+        console.log(event, data);
+      }
+    );
+  }
+
+  extractProgress(): void {
+    this.ipcRenderer.on(
+      'extract-progress',
+      (
+        event: IpcRendererEvent,
+        tmpPath: string,
+        savePath: string,
+        finished: boolean
+      ) => {
+        console.log(event, tmpPath, savePath, finished);
+      }
+    );
+
+    this.ipcRenderer.on(
+      'extract-error',
+      (
+        event: IpcRendererEvent,
+        tmpPath: string,
+        savePath: string,
+        error: string
+      ) => {
+        console.log(event, tmpPath, savePath, error);
+      }
+    );
   }
 }
