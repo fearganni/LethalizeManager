@@ -63,7 +63,7 @@
 
     <div class="col-md-6 col-lg-4 mb-4" *ngFor="let item of temp.slice((page-1) * pageSize, page * pageSize)">
       <a class="card card-hover-info bg-secondary text-decoration-none border-0 h-100 overflow-hidden"
-        href="javascript:;">
+        [routerLink]="['/mod', item.owner, item.name]">
         <div class="overflow-hidden position-relative">
 
           <!-- background item logo -->
@@ -119,7 +119,7 @@
 
           <!-- title -->
           <h5 class="h5 card-title">
-            <a [routerLink]="'/mod/'+item.full_name">
+            <a [routerLink]="['/mod', item.owner, item.name]">
               {{ item.name }}
             </a>
           </h5>

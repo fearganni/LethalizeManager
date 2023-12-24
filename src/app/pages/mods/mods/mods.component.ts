@@ -1,29 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RequestService } from '../../core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { ModInfo, RequestService, ThunderstoreService } from '../../../core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+interface SearchForm {
+  nsfw_enabled: boolean;
+  category: string;
+  keyword_term: string;
+}
+
+interface Categories {
+  category: string;
+  value: string;
+  count: number;
+}
 
 @Component({
-  selector: 'app-mod',
-  templateUrl: './mod.component.html',
+  selector: 'app-mods',
+  templateUrl: './mods.component.html',
   styles: [],
 })
-export class ModComponent implements OnInit {
-  form: UntypedFormGroup;
+export class ModsComponent implements OnInit {
+  form: FormGroup;
 
-  mods: any[] = [];
+  mods: ModInfo[] = [];
 
   // Filtered
-  temp: any[] = [];
-  categories: any[] = [];
+  temp: ModInfo[] = [];
+  categories: Categories[] = [];
 
   // pagination
-  page: number = 1;
-  pageSize: number = 50;
+  page = 1;
+  pageSize = 50;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
-    private request: RequestService
+    private formBuilder: FormBuilder,
+    private request: RequestService,
+
+    private thunderstoreService: ThunderstoreService
   ) {
     this.form = this.formBuilder.group({
       nsfw_enabled: [true],
@@ -33,37 +47,39 @@ export class ModComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.request
-      .get<any[]>(this.request.preset_urls.thunderstore_api)
-      .subscribe({
-        next: (r: any[]) => {
-          // Only show (non-depreciated) results
-          this.mods = r.filter((item) => !item.is_deprecated);
+    this.thunderstoreService.ThunderstoreData.subscribe({
+      next: (r) => {
+        console.log(r);
 
-          // Make sure we show pinned items first
-          this.temp = this.mods.sort((a, b) => {
-            if (a.is_pinned && !b.is_pinned) {
-              return -1;
-            }
+        // Only show (non-depreciated) results
+        this.mods = r.filter((item: ModInfo) => !item.is_deprecated);
 
-            if (!a.is_pinned && b.pinned) {
-              return 1;
-            }
+        // Make sure we show pinned items first
+        this.temp = this.mods.sort((a, b) => {
+          if (a.is_pinned && !b.is_pinned) {
+            return -1;
+          }
 
-            return 0;
-          });
+          if (!a.is_pinned && b.is_pinned) {
+            return 1;
+          }
 
-          // Create our category listings
-          this.categoryFiltering(this.temp);
-        },
-        error: (e) => this.request.error(e),
-      });
+          return 0;
+        });
+
+        // Create our category listings
+        this.categoryFiltering(this.temp);
+      },
+    });
 
     this.form.valueChanges.pipe().subscribe({
-      next: (v) => {
-        const nsfw_enabled = this.form.get('nsfw_enabled')?.value as Boolean;
-        const categoryValue = this.form.get('category')?.value;
-        const term = new RegExp(this.form.get('keyword_term')?.value, 'gi');
+      next: () => {
+        const form: SearchForm = this.form.value;
+
+        // Get variables
+        const nsfw_enabled = form.nsfw_enabled;
+        const categoryValue = form.category;
+        const term = new RegExp(form.keyword_term, 'gi');
 
         // Only create a RegExp for category if categoryValue is not an empty string
         const category = categoryValue ? new RegExp(categoryValue, 'gi') : null;
@@ -85,7 +101,7 @@ export class ModComponent implements OnInit {
               return -1;
             }
 
-            if (!a.is_pinned && b.pinned) {
+            if (!a.is_pinned && b.is_pinned) {
               return 1;
             }
 
@@ -97,18 +113,18 @@ export class ModComponent implements OnInit {
     });
   }
 
-  categoryFiltering(mods: any[]): void {
+  categoryFiltering(mods: ModInfo[]): void {
     const category_mapping = mods.reduce((map, item) => {
       item.categories.forEach((category: string) => {
         if (map.has(category)) {
-          map.set(category, map.get(category) + 1);
+          map.set(category, (map.get(category) as number) + 1);
         } else {
           map.set(category, 1);
         }
       });
 
       return map;
-    }, new Map());
+    }, new Map<string, number>());
 
     this.categories = Array.from(category_mapping, ([category, count]) => ({
       category,

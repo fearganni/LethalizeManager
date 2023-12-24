@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModComponent } from './mod.component';
+import { ModsComponent } from './mods.component';
 
-describe('ModComponent', () => {
-  let component: ModComponent;
-  let fixture: ComponentFixture<ModComponent>;
+describe('ModsComponent', () => {
+  let component: ModsComponent;
+  let fixture: ComponentFixture<ModsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModComponent]
+      declarations: [ModsComponent]
     });
-    fixture = TestBed.createComponent(ModComponent);
+    fixture = TestBed.createComponent(ModsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
