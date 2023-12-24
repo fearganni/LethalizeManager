@@ -7,7 +7,7 @@ import { ElectronService } from '../../../core';
   styles: [],
 })
 export class FooterComponent implements OnInit {
-  appVersion: string = '0.0.0';
+  appVersion = '0.0.0';
 
   constructor(private electronService: ElectronService) {}
 
