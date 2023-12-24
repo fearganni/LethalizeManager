@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 import {
+  ElectronService,
   GitHubRelease,
   GitHubRepo,
   ModInfo,
@@ -30,7 +32,9 @@ export class ModComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private request: RequestService,
-    private thunderstoreService: ThunderstoreService
+    private toastr: ToastrService,
+    private thunderstoreService: ThunderstoreService,
+    private electronService: ElectronService
   ) {}
 
   ngOnInit(): void {
@@ -103,5 +107,28 @@ export class ModComponent implements OnInit {
     }
 
     return '0';
+  }
+
+  downloadFile(
+    event: Event,
+    fileUrl: string | undefined,
+    fileName: string | undefined
+  ): void {
+    console.dirxml(event);
+
+    if (this.electronService.isElectron) {
+      if (fileUrl && fileName) {
+        // Create a new listener for download progress
+        this.electronService.downloadProgress();
+
+        // Send our download request
+        this.electronService.downloadFile(fileUrl, `${fileName}.zip`);
+      }
+    } else {
+      this.toastr.warning(
+        "You can now download, extract, install or update files when you're not running the Lethalize application. Please download that first.",
+        'Not on the app!'
+      );
+    }
   }
 }

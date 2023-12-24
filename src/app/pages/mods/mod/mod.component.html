@@ -47,7 +47,9 @@
                   </span>
                 </div>
               </div>
-              <a href="#" class="btn btn-lg btn-primary rounded-pill">
+              <a href="javascript:;"
+                (click)="downloadFile($event, mod?.versions?.at(0)?.download_url, mod?.versions?.at(0)?.full_name)"
+                class="btn btn-lg btn-primary rounded-pill">
                 <i class="ai-download ms-n1 me-2"></i>
                 Download latest
               </a>
