@@ -67,11 +67,15 @@ try {
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
   app.on('ready', () => {
-    setTimeout(createWindow, 400);
+    setTimeout(() => {
+      // Create the window
+      const window = createWindow();
 
-    new DiscordRPC().connect();
-    new IpcMain(win).listen();
-    new AppUpdate(win).check();
+      // Set up secondary processes
+      const discord_rpc = new DiscordRPC().connect();
+      const ipc_main = new IpcMain(window).listen();
+      const app_updaet = new AppUpdate(window).check();
+    }, 400);
   });
 
   // Quit when all windows are closed.

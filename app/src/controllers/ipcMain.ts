@@ -1,11 +1,11 @@
 import { BrowserWindow, ipcMain } from 'electron';
 
-import { DownloadFile } from './ipc/Download';
+import { DownloadFile, ExtractFile } from './ipc';
 
 export class IpcMain {
-  win: BrowserWindow | null = null;
+  win: BrowserWindow;
 
-  constructor(window: BrowserWindow | null) {
+  constructor(window: BrowserWindow) {
     this.win = window;
   }
 
@@ -13,11 +13,16 @@ export class IpcMain {
     // Create a download file listener
     ipcMain.on(
       'download-file',
-      async (event, fileUrl, savePath) =>
-        await DownloadFile(event, fileUrl, savePath, this.win)
+      async (event, fileUrl, fileName) =>
+        await DownloadFile(event, fileUrl, fileName, this.win)
     );
 
     // Create the extract file listener
+    ipcMain.on(
+      'extract-file',
+      async (event, tmpPath, savePath) =>
+        await ExtractFile(event, tmpPath, savePath, this.win)
+    );
 
     // Create the update file listener
   }

@@ -17,11 +17,11 @@ export class DiscordRPC {
     });
 
     // Once the client is ready to go
-    this.client.on('ready', () => {
+    this.client.on('ready', async () => {
       console.debug(
         `Successfully authorised as ${this.client?.user?.username}#${this.client?.user?.discriminator}`
       );
-      this.startup();
+      await this.startup();
     });
 
     // Once the client becomes closed
@@ -61,8 +61,8 @@ export class DiscordRPC {
     });
   }
 
-  startup(): void {
-    this.tasks[this.i++]();
+  async startup(): Promise<void> {
+    await this.tasks[this.i++]();
     if (this.i < this.tasks.length) {
       setTimeout(this.startup, 5 * 1000);
     }
