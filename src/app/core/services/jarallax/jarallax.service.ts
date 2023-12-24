@@ -9,9 +9,9 @@ declare var jarallax: any;
   providedIn: 'root',
 })
 export class JarallaxService {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
-  jarallaxAll() {
+  jarallaxAll(): void {
     if (isPlatformBrowser(this.platformId)) {
       jarallax(document.querySelectorAll('.jarallax'), {});
     }
