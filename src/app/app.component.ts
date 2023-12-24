@@ -13,7 +13,12 @@ import { register } from 'swiper/element/bundle';
 
 import { APP_CONFIG } from '../environments/environment';
 
-import { AppSettings, ElectronService, JarallaxService } from './core';
+import {
+  AppSettings,
+  ElectronService,
+  JarallaxService,
+  ThunderstoreService,
+} from './core';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +34,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
     private lb: LoadingBarService,
     private translate: TranslateService,
     private electronService: ElectronService,
-    private jarallaxService: JarallaxService
+    private jarallaxService: JarallaxService,
+
+    private thunderstoreService: ThunderstoreService
   ) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
@@ -64,6 +71,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
         }
       },
     });
+
+    this.thunderstoreService.update();
   }
 
   ngAfterViewChecked(): void {
