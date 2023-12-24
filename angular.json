@@ -15,6 +15,7 @@
           "strict": true
         },
         "@schematics/angular:component": {
+          "inlineStyle": true,
           "style": "scss"
         }
       },
