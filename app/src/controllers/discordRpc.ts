@@ -1,50 +1,46 @@
 import { Client } from 'discord-rpc';
 
 export class DiscordRPC {
-  client: Client | null = null;
-  startTimestamp: Date = new Date();
-  retryDuration: number = 15;
-
-  i = 0;
-  tasks = [this.updatePresence];
+  private client: Client | null = null;
+  private startTimestamp: Date = new Date();
+  private retryDuration: number = 15; // in seconds
+  private tasks = [this.updatePresence];
 
   connect(): void {
-    if (this.client) this.client.destroy();
+    if (this.client) {
+      this.client.destroy();
+      this.client = null;
+    }
 
-    // Create new discord rpc client
-    this.client = new Client({
-      transport: 'ipc',
-    });
+    this.client = new Client({ transport: 'ipc' });
+    this.setupClientEventHandlers();
+  }
 
-    // Once the client is ready to go
-    this.client.on('ready', async () => {
+  private setupClientEventHandlers(): void {
+    this.client?.on('ready', async () => {
       console.debug(
-        `Successfully authorised as ${this.client?.user?.username}#${this.client?.user?.discriminator}`
+        `Authorized as ${this.client?.user?.username}#${this.client?.user?.discriminator}`
       );
       await this.startup();
     });
 
-    // Once the client becomes closed
-    this.client.once('close', () => {
-      console.error(`Connection to Discord closed. Attempting to reconnect...`);
-      console.debug(
-        `Automatically retrying to connect, please wait ${this.retryDuration} seconds...`
-      );
-
-      this.connect();
+    this.client?.once('close', () => {
+      console.error('Connection to Discord closed. Attempting to reconnect...');
+      setTimeout(() => this.connect(), this.retryDuration * 1000);
     });
 
-    setTimeout(() => {
-      this.client?.login({ clientId: '1186462656081698846' });
-    }, this.retryDuration * 1000);
+    setTimeout(
+      () => this.client?.login({ clientId: '1186462656081698846' }),
+      this.retryDuration * 1000
+    );
   }
 
-  async updatePresence(): Promise<any> {
+  private async updatePresence(): Promise<void> {
     console.log(
-      `Successfully updated ${this.client?.user?.username}#${this.client?.user?.discriminator}'s Rich Presence!`
+      `Updating Rich Presence for ${this.client?.user?.username}#${this.client?.user?.discriminator}`
     );
 
-    return this.client?.setActivity({
+    await this.client?.setActivity({
       details: 'Modifying my mods',
       largeImageKey: 'icon',
       largeImageText: 'Lethalize Manager',
@@ -61,10 +57,9 @@ export class DiscordRPC {
     });
   }
 
-  async startup(): Promise<void> {
-    await this.tasks[this.i++]();
-    if (this.i < this.tasks.length) {
-      setTimeout(this.startup, 5 * 1000);
+  private async startup(): Promise<void> {
+    for (const task of this.tasks) {
+      await task.bind(this)();
     }
   }
 }
