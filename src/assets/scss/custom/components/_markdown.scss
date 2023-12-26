@@ -1,0 +1,5 @@
+markdown {
+  table {
+    @extend .table, .table-dark, .table-striped, .rounded, .overflow-hidden;
+  }
+}
